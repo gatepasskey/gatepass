@@ -1,4 +1,4 @@
-const db = require('../models/model');
+const db = require('../models/dbConnection');
 const { v4: uuidv4 } = require('uuid');
 
 const guestController = {};

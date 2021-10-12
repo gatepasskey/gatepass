@@ -8,7 +8,6 @@ const loginController = require('../controllers/loginController');
 router.post('/',
   loginController.verifyUser,
   loginController.generateCookie,
-  loginController.generateSession,
   (req, res) => {
     return res.status(200).json(res.locals.userType);
 });
