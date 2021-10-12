@@ -1,3 +1,4 @@
+const db = require('../models/model');
 const loginController = {};
 
 // route to check if the user exists 

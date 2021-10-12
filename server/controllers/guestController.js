@@ -1,3 +1,4 @@
+const db = require('../models/model');
 const guestController = {};
 
 // route to fetch all active guests
