@@ -16,13 +16,6 @@ residentController.getResidentsAndGuests = (req, res, next) => {
   //     log: `residentController.getResidentsAndGuests: ERROR: ${err.message}`,
   //     message: {err: 'Error occurred in residentController.getResidentsAndGuests. Check server logs for more details.'},
   //   });
-  // }
-  
-const residentController = {};
-
-// route for fetching and sending all information regarding all residents and their guests to the frontend
-residentController.getResidentsandGuests = (req, res, next) => {
-
-};
+}
 
 module.exports = residentController;
