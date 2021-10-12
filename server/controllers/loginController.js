@@ -21,7 +21,7 @@ loginController.verifyUser = async (req, res, next) => {
       } else {
         res.locals.userType = 'resident';
       }
-      res.locals.user = qResult.rows[0].username;
+      res.locals.user = qResult.rows[0]._id;
       return next();
     }
     return res.json({ message: 'User Not Found' });
@@ -39,7 +39,7 @@ loginController.generateCookie = (req, res, next) => {
   } else {
     res.cookie('access', 'resident');
   } 
-  res.cookie('username', res.locals.user);
+  res.cookie('user', res.locals.user);
   return next();
 };
 
