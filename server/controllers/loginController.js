@@ -29,7 +29,9 @@ loginController.verifyUser = async (req, res, next) => {
     return next(err);
   }
 };
-
+// cookie will have userId
+// returned value from 
+// 
 // route to generate cookie for the logged in user
 loginController.generateCookie = (req, res, next) => {
   // set cookie key: key value: hash identifying user
