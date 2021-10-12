@@ -10,12 +10,14 @@ guestController.addNewGuest = async (req, res, next) => {
   // return next
   // else, return back to the frontend that there was an error adding a new guest
   const { guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, guestResidentId } = req.body;
+  const id = uuidv4();
   try {
     const qNewGuest = {
-      text: 'INSERT INTO guests VALUES ()',
-      values: [guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, guestResidentId]
+      text: 'INSERT INTO guests VALUES ($1, $2, $3, $4, $5, $6, $7)',
+      values: [id, guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, guestResidentId]
     }
-    const qResult = await db.query(qNewGuest);
+    const qNewGuestResult = await db.query(qNewGuest);
+    return next();
   } catch (err) {
     return next(err);
   }
@@ -49,11 +51,12 @@ guestController.deleteGuest = async (req, res, next) => {
   const currentUser = req.cookies.user;
   const { guestId } = req.body;
   try {
-    const deleteGuest = {
+    const qDeleteGuest = {
       text: 'DELETE FROM guests WHERE resident_id=$1 AND _id=$2',
       value: [currentUser, guestId]
     }
-    
+    const qDeleteResult = await db.query(qDeleteGuest);
+    return next();
   } catch(err) {
     return next(err);
   }
