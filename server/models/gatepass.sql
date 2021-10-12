@@ -17,7 +17,7 @@ CREATE TABLE public.guests(
     "email" varchar NOT NULL,
     "phone_number" varchar NOT NULL,
     "license_number" varchar NOT NULL,
-    "qr_key" varchar NOT NULL,
+    -- "qr_key" varchar NOT NULL,
     "resident_id" varchar NOT NULL,
     PRIMARY KEY ("_id"),
     FOREIGN KEY ("resident_id") REFERENCES users("_id")
@@ -25,4 +25,5 @@ CREATE TABLE public.guests(
 
 INSERT INTO users(_id, username, password, admin, address, phone_number) VALUES
 ('4c4f4dfe-f203-4d78-bef2-3df860747336', 'resident1', 'resident1', FALSE, '123 Here', '12345678910'),
+('5555555f-ffdd-354t-dsf3-355555555555', 'resident2', 'resident2', FALSE, 'haha', '12482357234'),
 ('63100c8a-94cf-4bd1-98a0-6f36b13d680a', 'admin2', 'admin2', TRUE, '', '')
