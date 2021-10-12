@@ -9,7 +9,7 @@ const residentController = require('../controllers/residentController');
 router.post('/addNewGuest',
   guestController.addNewGuest,
   (req, res) => {
-    return res.status(200).json();
+    return res.status(200).json(res.locals.newGuest);
 });
 
 // current guest list - resident portal
@@ -23,14 +23,14 @@ router.get('/getGuests',
 router.delete('/deleteGuest',
   guestController.deleteGuest,
   (req, res) => {
-    return res.status(200).json();
+    return res.status(200).json({ message: "User deleted" });
 });
 
 // admin resident/guest names list - admin portal
-router.get('/',
+router.get('/getResidentsAndGuests',
   residentController.getResidentsAndGuests,
   (req, res) => {
-    return res.status(200).json();
+    return res.status(200).json(res.locals.residentsAndGuests);
 });
 
 module.exports = router;

@@ -9,14 +9,16 @@ guestController.addNewGuest = async (req, res, next) => {
   // add guest data to database if completely new
   // return next
   // else, return back to the frontend that there was an error adding a new guest
-  const { guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, guestResidentId } = req.body;
+  const { guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense } = req.body;
+  const currentUser = req.cookies.user;
   const id = uuidv4();
   try {
     const qNewGuest = {
       text: 'INSERT INTO guests VALUES ($1, $2, $3, $4, $5, $6, $7)',
-      values: [id, guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, guestResidentId]
+      values: [id, guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, currentUser]
     }
     const qNewGuestResult = await db.query(qNewGuest);
+    res.locals.newGuest = qNewGuestResult.rows[0];
     return next();
   } catch (err) {
     return next(err);
