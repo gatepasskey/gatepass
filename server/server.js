@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 // imports
 const path = require('path');
 const express = require('express');
@@ -39,4 +37,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
->>>>>>> Stashed changes
