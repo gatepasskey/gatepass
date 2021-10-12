@@ -21,7 +21,7 @@ loginController.verifyUser = async (req, res, next) => {
       } else {
         res.locals.userType = 'resident';
       }
-      res.locals.user = qResult.rows[0].username;
+      res.locals.user = qResult.rows[0]._id;
       return next();
     }
     return res.json({ message: 'User Not Found' });
@@ -34,23 +34,24 @@ loginController.verifyUser = async (req, res, next) => {
 loginController.generateCookie = (req, res, next) => {
   // set cookie key: key value: hash identifying user
   // return next
-  if (res.locals.user && res.locals.userType === 'admin') {
-    res.cookie('access', 'admin');
-  } else {
-    res.cookie('access', 'resident');
-  } 
-  res.cookie('username', res.locals.user);
+  res.cookie('user', res.locals.user);
   return next();
 };
 
 // route to verify if the user is currently logged into a page
-loginController.isLoggedIn = (req, res, next) => {
+loginController.isLoggedIn = async (req, res, next) => {
   // verifies the user's cookie currently has a session for it
   // return next
-  if (req.cookies.access === 'admin') {
-    res.locals.hasAdminAccess = true;
-  } else if (req.cookies.access === 'resident') {
-    res.locals.hasAdminAccess = false;
+  const currentUser = req.cookies.user;
+  const qUser = {
+    text: 'SELECT * FROM users WHERE username=$1',
+    values: [currentUser]
+  }
+  const qUserResult = await db.query(qUser);
+  if (qUserResult.rows[0].admin) {
+    res.locals.userType = 'admin';
+  } else if (!qUserResult.rows[0].admin) {
+    res.locals.userType = 'resident';
   } else {
     return res.json({ message: 'Invalid Access' });
   }
