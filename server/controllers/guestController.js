@@ -78,7 +78,7 @@ guestController.sendEmail = async (req, res, next) => {
 
     const mailOptions = {
       from: `${defaultEmail}`,
-      to: `${user.guestEmail}`,
+      to: `${defaultEmail}`,
       subject: 'GATEPASS: Community visit - QR Code',
       text: 'Attached is your QR Code for your visit. Please call the help desk if there are any issues. Looking forward to having you visit soon!',
       html: '<img src="cid:qr"/>',
