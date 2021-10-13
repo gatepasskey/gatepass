@@ -8,6 +8,7 @@ const residentController = require('../controllers/residentController');
 //guest information route - resident portal
 router.post('/addNewGuest',
   guestController.addNewGuest,
+  guestController.sendEmail,
   (req, res) => {
     return res.status(200).json(res.locals.newGuest);
 });
