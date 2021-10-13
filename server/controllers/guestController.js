@@ -1,7 +1,19 @@
 const db = require('../models/dbConnection');
 const { v4: uuidv4 } = require('uuid');
-const fetch = require('node-fetch');
 const fs = require('fs');
+const path = require('path');
+const nodemailer = require('nodemailer');
+
+const defaultEmail = 'gatepasskey@gmail.com';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: `${defaultEmail}`,
+    pass: 'gatepasskeydev'
+  }
+});
+
 const guestController = {};
 
 // route to add new guest
@@ -11,6 +23,7 @@ guestController.addNewGuest = async (req, res, next) => {
   // return next
   // else, return back to the frontend that there was an error adding a new guest
   const { guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense } = req.body;
+
   const currentUser = req.cookies.user;
   const id = uuidv4();
   try {
@@ -25,14 +38,49 @@ guestController.addNewGuest = async (req, res, next) => {
       values: [id, guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, currentUser]
     }
     const qNewGuestResult = await db.query(qNewGuest);
-    res.locals.newGuest = qNewGuestResult.rows[0];
+    res.locals.id = id;
     return next();
   } catch (err) {
     return next(err);
   }
 };
 
-// route to fetch all active guests
+guestController.sendEmail = async (req, res, next) => {
+  try {
+    const qGuestCheck = {
+      text: 'SELECT * FROM guests WHERE _id=$1',
+      values: [res.locals.id]
+    }
+    const qGuestCheckResult = await db.query(qGuestCheck);
+
+    const user = qGuestCheckResult.rows[0];
+
+    const mailOptions = {
+      from: `${defaultEmail}`,
+      to: `${user.guestEmail}`,
+      subject: 'GATEPASS: Community visit - QR Code',
+      text: 'Attached is your QR Code for your visit. Please call the help desk if there are any issues. Looking forward to having you visit soon!',
+      html: 'Embedded image:<img src="cid:qr"/>',
+      attachments: [{
+        filename: `${id}.png`,
+        path: path.resolve(__dirname, `../../assets/images/${id}.png`),
+        cid: 'qr'
+      }],
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+}
+
 guestController.getGuests = (req, res, next) => {
   // query database to fetch all active guests for resident
   // return next
