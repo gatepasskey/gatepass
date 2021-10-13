@@ -31,7 +31,7 @@ router.delete('/deleteGuest',
 router.get('/getResidentsAndGuests',
   residentController.getResidentsAndGuests,
   (req, res) => {
-    return res.status(200).json(res.locals.residentsAndGuests);
+    return res.status(200).json({ residentInfo: res.locals.residentInfo, guests: res.locals.guests });
 });
 
 module.exports = router;
