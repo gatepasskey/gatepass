@@ -4,9 +4,9 @@ const AdminPage = () => {
   return (
     <div>
       <h1>Admin Page</h1>
-      <button></button>
-      <button></button>
-      <button></button>
+      <button>GUEST</button>
+      <button>START</button>
+      <button>END</button>
     </div>
   )
 };
