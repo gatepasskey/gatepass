@@ -77,7 +77,7 @@ loginController.changePassword = async (req, res, next) => {
   const { newPassword } = req.body;
   try {
     const qPassword = {
-      text: 'UPDATE users SET password=$1 WHERE username=$2',
+      text: 'UPDATE users SET password=$1 WHERE _id=$2',
       values: [newPassword, res.locals.user]
     }
     const qPassResult = await db.query(qPassword);

@@ -9,10 +9,10 @@ const AdminPage = (props) => {
       body: JSON.stringify({guestId: e.target.id}),
       headers: {'Content-Type': 'application/json'}
     }).then((res) => {
-      const button = document.getElementById(e.target.id);
-      const parentTable = button.parentNode.parentNode;
-      console.log(parentTable);
-      parentTable.remove();
+      let newArr = props.guestList.filter((entry) => {
+        return entry._id !== e.target.id;
+      })
+      props.setGuestList(newArr);
     })
     .catch(err => console.log('Error: ', err))
   }
@@ -25,12 +25,19 @@ const AdminPage = (props) => {
         <td>{guest.email}</td>
         <td>{guest.phone_number}</td>
         <td>{guest.license_number}</td>
-        <td>{guest.address}</td>
         <td><button id={guest._id} onClick={deleteGuest}>delete user</button></td>
       </tr>
     )
   })
-  console.log('guests: ', guests)
+  //guests
+  // email: "leynasheen@gmail.com"
+  // first_name: "Lina"
+  // last_name: "Shin"
+  // license_number: "456"
+  // phone_number: "123"
+  // resident_id: "4c4f4dfe-f203-4d78-bef2-3df860747336"
+  // _id: "15c96490-2551-4c53-a4e3-35fd19143168"
+  // console.log('guests: ', guests)
 
   return (
     <>
@@ -41,7 +48,6 @@ const AdminPage = (props) => {
             <th>EMAIL</th>
             <th>PHONE</th>
             <th>LICENSE</th>
-            <th>ADDRESS</th>
           </tr>
         </thead>
         <tbody>
