@@ -12,6 +12,7 @@ const Login = (props) => {
   const [hasAdminAccess, setHasAdminAccess] = useState(false);
 
   // Automatically redirect to Admin or resident portal on refresh
+  // Persistent login session
   useEffect(() => {
     fetch('/login/loginCheck')
       .then(res => res.json())
@@ -34,8 +35,6 @@ const Login = (props) => {
   // Function to submit login form to server
   const submitLogin = (e) => {
     e.preventDefault();
-    // setHasResidentAccess(true)
-    // console.log(username, password);
     fetch('/login', {
       method: 'post',
       body: JSON.stringify({ username, password }),
@@ -53,7 +52,7 @@ const Login = (props) => {
           props.setHasAccess(true);
           setUserId(data.userId)
         } else {
-          window.alert('username or password is incorrect');
+          window.alert('Username or password is incorrect');
         }
       })
       .catch(err => console.error(err));
@@ -74,7 +73,6 @@ const Login = (props) => {
         }
       </div>
       <div>
-        {/* SWAP THESE */}
         {hasResidentAccess && <GuestContainer userId={userId} />}
       </div>
       <div>

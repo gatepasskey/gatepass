@@ -75,10 +75,10 @@ guestController.sendEmail = async (req, res, next) => {
     // creates assets/images/ folder if it doesnt exist already
     let dir = path.resolve(__dirname, `../../assets/images/`);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
+    console.log(user.email);
     const mailOptions = {
       from: `${defaultEmail}`,
-      to: `${defaultEmail}`,
+      to: `${user.email}`,
       subject: 'GATEPASS: Community visit - QR Code',
       text: 'Attached is your QR Code for your visit. Please call the help desk if there are any issues. Looking forward to having you visit soon!',
       html: '<img src="cid:qr"/>',

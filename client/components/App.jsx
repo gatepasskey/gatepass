@@ -1,4 +1,4 @@
-import React from'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Login from './Login.jsx'
 import GuestPage from './GuestPage.jsx'
