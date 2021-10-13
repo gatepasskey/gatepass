@@ -8,9 +8,7 @@ const Guest = (props) => {
     <span>
       <div onClick={() => setShowInfo(!showInfo)}>{props.firstName} {props.lastName}</div>
       {showInfo &&
-        
-          <div>{props.email}</div>
-        
+        <div>{props.email}</div>
       }
 
     </span>

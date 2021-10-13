@@ -33,6 +33,7 @@ const Login = (props) => {
 
   // Function to submit login form to server
   const submitLogin = (e) => {
+    e.preventDefault();
     // setHasResidentAccess(true)
     // console.log(username, password);
     fetch('/login', {
@@ -64,9 +65,11 @@ const Login = (props) => {
         {!hasAdminAccess && !hasResidentAccess &&
           <>
             <h1>Login</h1>
-            <input type='text' value={username} onChange={e => setUsername(e.target.value)} placeholder='USERNAME'></input>
-            <input type='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='PASSWORD'></input>
-            <button onClick={submitLogin}>LOG IN</button>
+            <form onSubmit={submitLogin}>
+              <input type='text' value={username} onChange={e => setUsername(e.target.value)} placeholder='USERNAME'></input>
+              <input type='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='PASSWORD'></input>
+              <button type='submit'>LOG IN</button>
+            </form>
           </>
         }
       </div>
