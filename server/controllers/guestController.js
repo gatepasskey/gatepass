@@ -1,3 +1,4 @@
+require('dotenv').config();
 const db = require('../models/dbConnection');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
@@ -6,12 +7,12 @@ const fetch = require('node-fetch');
 const nodemailer = require('nodemailer');
 
 const defaultEmail = 'gatepasskey@gmail.com';
-
+const secret = process.env.APPPWD;
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: `${defaultEmail}`,
-    pass: 'ingmqozxapowplmp'
+    pass: `${secret}`
   }
 });
 
@@ -53,7 +54,6 @@ guestController.addNewGuest = async (req, res, next) => {
         console.log('Downloaded Image');
         return next();
       })
-      // res.body.pipe(fs.createWriteStream(`assets/images/${id}.png`));
     })
     .catch((err) => {
       console.log('ERROR IN addNewGuest: ', err);
@@ -75,7 +75,7 @@ guestController.sendEmail = async (req, res, next) => {
     // creates assets/images/ folder if it doesnt exist already
     let dir = path.resolve(__dirname, `../../assets/images/`);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    console.log(user.email);
+
     const mailOptions = {
       from: `${defaultEmail}`,
       to: `${user.email}`,

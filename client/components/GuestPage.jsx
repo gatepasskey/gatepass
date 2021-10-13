@@ -32,7 +32,6 @@ const GuestPage = (props) => {
 
   return (
     <div className="addGuestForm">
-      {/* <h1 className="guestHeader">NEW GUEST INFORMATION</h1> */}
       <input type='text' value={guestFirstName} onChange={e => setGuestFirstName(e.target.value)} placeholder='FIRST NAME'></input>
       <input type='text' value={guestLastName} onChange={e => setGuestLastName(e.target.value)} placeholder='LAST NAME'></input>
       <input type='text' value={guestEmail} onChange={e => setGuestEmail(e.target.value)} placeholder='EMAIL'></input>

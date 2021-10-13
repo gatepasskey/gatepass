@@ -23,6 +23,6 @@ CREATE TABLE public.guests(
 );
 
 INSERT INTO users(_id, username, password, admin, address, phone_number) VALUES
-('4c4f4dfe-f203-4d78-bef2-3df860747336', 'resident1', 'resident1', FALSE, '123 Here', '12345678910'),
-('5555555f-ffdd-354t-dsf3-355555555555', 'resident2', 'resident2', FALSE, 'haha', '12482357234'),
-('63100c8a-94cf-4bd1-98a0-6f36b13d680a', 'admin2', 'admin2', TRUE, '', '')
+('4c4f4dfe-f203-4d78-bef2-3df860747336', 'lina', 'lina', FALSE, '123 Hello Dr.', '(234)567-8910'),
+('5555555f-ffdd-354t-dsf3-355555555555', 'charles', 'charles', FALSE, '150 Bye Dr.', '(248)235-7234'),
+('63100c8a-94cf-4bd1-98a0-6f36b13d680a', 'admin', 'admin', TRUE, '', '')

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import fetch from 'node-fetch'
 import GuestContainer from '../containers/GuestContainer';
 import AdminContainer from '../containers/AdminContainer';
 
@@ -17,7 +16,6 @@ const Login = (props) => {
     fetch('/login/loginCheck')
       .then(res => res.json())
       .then(data => {
-        console.log('data', data);
         if (data.message !== 'user logged in') {
           setHasAdminAccess(false);
           setHasResidentAccess(false);
@@ -42,7 +40,6 @@ const Login = (props) => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log('data is: ', data)
         if (data === 'resident') {
           setHasResidentAccess(true);
           props.setHasAccess(true);
