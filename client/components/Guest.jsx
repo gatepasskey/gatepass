@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 
 
 const Guest = (props) => {
-  const [showInfo, setShowInfo] = useState(false);
 
   const deleteGuest = (e) => {
-    console.log('target: ', e.target.id)
     fetch('/portal/deleteGuest', {
       method: 'delete',
       body: JSON.stringify({ guestId: e.target.id }),
@@ -18,13 +16,9 @@ const Guest = (props) => {
 
   return (
     <span>
-      <div id="guest" onClick={() => setShowInfo(!showInfo)}>{props.firstName} {props.lastName}</div>
-      {showInfo &&
-        <div>{props.email}
-          <button id={props.guestId} onClick={deleteGuest}>delete user</button>
-        </div>
-      }
-
+      <div id="guest">{props.firstName} {props.lastName}
+      <button className="deleteGuestFromList" id={props.guestId} onClick={deleteGuest}>X</button>
+      </div>
     </span>
   )
 };

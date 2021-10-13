@@ -35,7 +35,7 @@ const ChangePassword = () => {
       .then((data) => {
         console.log(data.message);
         if (data.message === 'User Not Found') {
-          return window.alert('Invalid Username/Password combination');
+          return window.alert('Invalid username or password');
         } else {
           clearFields();
         }

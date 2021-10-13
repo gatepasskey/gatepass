@@ -138,12 +138,16 @@ button:hover {
   margin-top: 0px;
 }
 
+#guestListTitle {
+  text-decoration: overline;
+}
+
 .guestList {
   width: 90%;
   height: 450px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: column-reverse;
+  align-content: flex-end;
   align-items: center;
   margin-bottom: 5px;
   text-align: center;
@@ -151,6 +155,36 @@ button:hover {
   border-radius: 20px;
   margin: 20px;
   box-shadow: 0 0 10px black;
+}
+
+#guest {
+  width: 200px;
+  background-color: #f1f0ea;
+  color: #29282A;
+  border-radius: 20px;
+  margin: 12px;
+  font-size: 90%;
+  padding: 12px;
+  justify-content: center;
+  align-content: center;
+}
+
+.deleteGuestFromList {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: 1px solid #29282A;
+  float: right;
+  background-color: #f1f0ea;
+  color: #29282A;
+  padding: 0px;
+  text-align: center;
+}
+
+.deleteGuestFromList:hover {
+  background-color: #9b2226;
+  color: #f1f0ea;
+  border: 1px solid #9b2226;
 }
 
 #logoutButton {
@@ -177,7 +211,7 @@ button:hover {
 }
 
 .adminForm {
-  width: 120%;
+  width: 50%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -186,9 +220,18 @@ button:hover {
   text-align: center;
 }
 
+#residentInfo {
+  margin-bottom: 20px;
+}
+
+.deleteGuestButton {
+  margin-left: 10px;
+}
+
 table {
-  width: 250%;
+  width: 70%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 th {
