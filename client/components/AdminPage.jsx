@@ -44,10 +44,10 @@ const AdminPage = (props) => {
       <table>
         <thead>
           <tr>
-            <th>GUEST</th>
+            <th>GUEST NAME</th>
             <th>EMAIL</th>
-            <th>PHONE</th>
-            <th>LICENSE</th>
+            <th>PHONE NUMBER</th>
+            <th>LICENSE NUMBER</th>
           </tr>
         </thead>
         <tbody>

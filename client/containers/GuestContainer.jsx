@@ -5,10 +5,13 @@ import LogoutButton from '../components/LogoutButton.jsx';
 
 const GuestContainer = (props) => {
   return (
-    <div>
+    <div className="mainContainer">
+      <h1 id="guestContainerHeader">MY GATEPASS</h1>
       <LogoutButton/>
-      <GuestPage userId={props.userId}/>
-      <GuestList userId={props.userId}/>
+      <div className="guestContainer">
+        <GuestPage userId={props.userId}/>
+        <GuestList userId={props.userId}/>
+      </div>
     </div>
   )
 }

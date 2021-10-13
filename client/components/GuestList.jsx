@@ -25,8 +25,8 @@ const GuestList = (props) => {
   }
 
   return (
-    <div>
-      <h1>Guest List</h1>
+    <div className="guestList">
+      <h1 className="guestHeader">MY GUESTS</h1>
       <div>
         {guestList}
       </div>
