@@ -97,7 +97,7 @@ guestController.getGuests = (req, res, next) => {
   db.query(qAllGuests, [currentUser])
     .then(qGuestResult => {
       res.locals.guestList = qGuestResult.rows;
-      console.log('DATA:', res.locals.guestList);
+      // console.log('DATA:', res.locals.guestList);
       return next();
     })
     .catch(err => {

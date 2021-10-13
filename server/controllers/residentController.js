@@ -15,14 +15,14 @@ residentController.getResidentsAndGuests = async (req, res, next) => {
     }
     const qResidentInfoResults = await db.query(qResidentInfo);
     res.locals.residentInfo = qResidentInfoResults.rows[0];
-    console.log('this is the resident info: ', res.locals.residentInfo);
+    // console.log('this is the resident info: ', res.locals.residentInfo);
     const qGetGuests = {
       text: 'SELECT * FROM guests WHERE resident_id=$1',
       values: [res.locals.residentInfo._id]
     }
     const qGetGuestsResults = await db.query(qGetGuests);
     res.locals.guests = qGetGuestsResults.rows;
-    console.log('this is the guest info: ', res.locals.guests);
+    // console.log('this is the guest info: ', res.locals.guests);
     return next();
   } catch (err) {
     console.log('ERROR in getResidentsAndGuests: ', err)
