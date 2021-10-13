@@ -109,14 +109,9 @@ guestController.getGuests = (req, res, next) => {
   // else, return back to the frontend that there was an error fetching the list of active guests
   const currentUser = req.cookies.user;
   const qAllGuests = 'SELECT * FROM guests WHERE resident_id=$1;'
-  // const qAllGuests = {
-  //   text: 'SELECT * FROM guests WHERE resident_id=$1;',
-  //   value: [currentUser]
-  // }
   db.query(qAllGuests, [currentUser])
     .then(qGuestResult => {
       res.locals.guestList = qGuestResult.rows;
-      // console.log('DATA:', res.locals.guestList);
       return next();
     })
     .catch(err => {
