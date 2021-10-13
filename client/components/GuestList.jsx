@@ -32,28 +32,16 @@ const GuestList = (props) => {
   //     })
   // }
 
-<<<<<<< HEAD
 
   return (
-    <div>
-      <h1>Guest List</h1>
+    <div className="guestList">
+      <h1 className="guestHeader">MY GUESTS</h1>
       <div>
         {props.guestList}
       </div>
       <button onClick={props.refreshGuestList}>Refresh Guest List</button>
     </div>
   )
-=======
-  return (
-    <div className="guestList">
-      <h1 className="guestHeader">MY GUESTS</h1>
-      <div>
-        {guestList}
-      </div>
-      <button onClick={refreshGuestList}>Refresh Guest List</button>
-  </div>
-)
->>>>>>> dev
 };
 
 export default GuestList;
