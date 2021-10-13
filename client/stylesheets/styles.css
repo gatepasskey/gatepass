@@ -177,7 +177,7 @@ button:hover {
 }
 
 .adminForm {
-  width: 120%;
+  width: 50%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -186,9 +186,18 @@ button:hover {
   text-align: center;
 }
 
+#residentInfo {
+  margin-bottom: 20px;
+}
+
+.deleteGuestButton {
+  margin-left: 10px;
+}
+
 table {
-  width: 250%;
+  width: 70%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 th {

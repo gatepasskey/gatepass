@@ -45,7 +45,10 @@ const AdminContainer = () => {
         <input id="adminSearch" value={residentAddress} onChange={(e) => setResidentAddress(e.target.value)} placeholder='SEARCH RESIDENT UNIT'></input>
         <button type='submit'>SEARCH</button>
       </form>
-      <div>{userInfo.username} {userInfo.address} {userInfo.phone_number}</div>
+      {userInfo.username.length ?
+        <div id="residentInfo">Current Resident: {userInfo.username}, {userInfo.address}, {userInfo.phone_number}</div>
+        : null
+      }
       <AdminPage guestList={guestList} setGuestList={setGuestList} />
     </div>
   )

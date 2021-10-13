@@ -25,7 +25,7 @@ const AdminPage = (props) => {
         <td>{guest.email}</td>
         <td>{guest.phone_number}</td>
         <td>{guest.license_number}</td>
-        <td><button id={guest._id} onClick={deleteGuest}>delete user</button></td>
+        <td><button className="deleteGuestButton" id={guest._id} onClick={deleteGuest}>DELETE</button></td>
       </tr>
     )
   })
