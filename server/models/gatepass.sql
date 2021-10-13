@@ -17,7 +17,6 @@ CREATE TABLE public.guests(
     "email" varchar NOT NULL,
     "phone_number" varchar NOT NULL,
     "license_number" varchar NOT NULL,
-    -- "qr_key" varchar NOT NULL,
     "resident_id" varchar NOT NULL,
     PRIMARY KEY ("_id"),
     FOREIGN KEY ("resident_id") REFERENCES users("_id")

@@ -1,6 +1,7 @@
 const db = require('../models/dbConnection');
 const { v4: uuidv4 } = require('uuid');
-
+const fetch = require('node-fetch');
+const fs = require('fs');
 const guestController = {};
 
 // route to add new guest
@@ -13,6 +14,12 @@ guestController.addNewGuest = async (req, res, next) => {
   const currentUser = req.cookies.user;
   const id = uuidv4();
   try {
+    fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${id}`, {
+      headers: {'Content-Type': 'image/png'}
+    })
+      .then(res => {
+        res.body.pipe(fs.createWriteStream(`assets/images/${id}.png`));
+      });
     const qNewGuest = {
       text: 'INSERT INTO guests VALUES ($1, $2, $3, $4, $5, $6, $7)',
       values: [id, guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, currentUser]

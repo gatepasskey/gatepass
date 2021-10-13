@@ -64,6 +64,11 @@ loginController.isLoggedIn = async (req, res, next) => {
   }
 }
 
+loginController.logout = (req, res, next) => {
+  res.clearCookie('user');
+  return next();
+}
+
 // route that handles the changing of a users password
 loginController.changePassword = async (req, res, next) => {
   // receive the user's login info in the previous middleware (verifyUser)
