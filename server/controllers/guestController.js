@@ -28,7 +28,7 @@ guestController.addNewGuest = async (req, res, next) => {
   const id = uuidv4();
   try {
     fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${id}`, {
-      headers: {'Content-Type': 'image/png'}
+      headers: { 'Content-Type': 'image/png' }
     })
       .then(res => {
         res.body.pipe(fs.createWriteStream(`assets/images/${id}.png`));
@@ -69,8 +69,8 @@ guestController.sendEmail = async (req, res, next) => {
         cid: 'qr'
       }],
     };
-    
-    transporter.sendMail(mailOptions, function(error, info) {
+
+    transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
       } else {
@@ -113,12 +113,13 @@ guestController.deleteGuest = async (req, res, next) => {
   const { guestId } = req.body;
   try {
     const qDeleteGuest = {
-      text: 'DELETE FROM guests WHERE resident_id=$1',
-      value: [guestId]
+      text: 'DELETE FROM guests WHERE _id=$1',
+      values: [guestId]
     }
     const qDeleteResult = await db.query(qDeleteGuest);
     return next();
   } catch (err) {
+    console.log('ERROR IN deleteGuest: ', err);
     return next(err);
   }
 };
