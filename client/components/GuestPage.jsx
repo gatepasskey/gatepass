@@ -16,7 +16,7 @@ const GuestPage = (props) => {
         headers: { 'Content-type': 'application/json' }
       }).then(() => {
         clearFields();
-        props.setWillUpdate(true);
+        props.refreshGuestList();
       })
         .catch(err => console.log(err))
     }
