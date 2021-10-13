@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AdminPage from "../components/AdminPage";
+import LogoutButton from '../components/LogoutButton';
 
 const AdminContainer = () => {
   const [resident, setResident] = useState('');
@@ -17,6 +18,7 @@ const AdminContainer = () => {
   return (
     <div>
       <h1>Admin Page</h1>
+      <LogoutButton/>
       <input value={resident} onChange={(e) => setResident(e.target.value)} placeholder='SEARCH FOR RESIDENT'></input>
       <button onClick={residentSearch}>GO</button>
       <AdminPage guestList={guestList}/>
