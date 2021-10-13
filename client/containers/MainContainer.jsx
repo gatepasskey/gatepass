@@ -7,10 +7,10 @@ const MainContainer = () => {
   const [viewResetPassword, setViewResetPassword] = useState(false);
   const [hasAccess, setHasAccess] = useState(false);
   return (
-    <div>
+    <div className="login">
       {!viewResetPassword && <Login hasAccess={hasAccess} setHasAccess={setHasAccess} />}
       {viewResetPassword && <ChangePassword />}
-      {!hasAccess && <button onClick={() => { setViewResetPassword(!viewResetPassword) }}>{(!viewResetPassword) ? "Reset Password" : "Go Back to Login"}</button>}
+      {!hasAccess && <button className="loginFormButton" onClick={() => { setViewResetPassword(!viewResetPassword) }}>{(!viewResetPassword) ? "CREATE NEW PASSWORD" : "RETURN TO LOGIN"}</button>}
       {/* <button onClick={() => {setViewChangePassword(!viewChangePassword)}}>Change Password</button> */}
 
     </div>

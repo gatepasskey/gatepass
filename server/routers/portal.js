@@ -28,7 +28,7 @@ router.delete('/deleteGuest',
 });
 
 // admin resident/guest names list - admin portal
-router.get('/getResidentsAndGuests',
+router.post('/getResidentsAndGuests',
   residentController.getResidentsAndGuests,
   (req, res) => {
     return res.status(200).json({ residentInfo: res.locals.residentInfo, guests: res.locals.guests });
