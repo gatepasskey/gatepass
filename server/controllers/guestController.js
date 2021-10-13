@@ -26,23 +26,25 @@ guestController.addNewGuest = async (req, res, next) => {
 };
 
 // route to fetch all active guests
-guestController.getGuests = async (req, res, next) => {
-  // const id = uuidv4();
+guestController.getGuests = (req, res, next) => {
   // query database to fetch all active guests for resident
   // return next
   // else, return back to the frontend that there was an error fetching the list of active guests
   const currentUser = req.cookies.user;
-  try {
-    const qAllGuests = {
-      text: 'SELECT * FROM guests WHERE resident_id=$1',
-      value: [currentUser]
-    }
-    const qGuestResult = await db.query(qAllGuests);
-    res.locals.guestList = qGuestResult.rows;
-    return next();
-  } catch(err) {
-    return next(err);
-  }
+  const qAllGuests = 'SELECT * FROM guests WHERE resident_id=$1;'
+  // const qAllGuests = {
+  //   text: 'SELECT * FROM guests WHERE resident_id=$1;',
+  //   value: [currentUser]
+  // }
+  db.query(qAllGuests, [currentUser])
+    .then(qGuestResult => {
+      res.locals.guestList = qGuestResult.rows;
+      console.log('DATA:', res.locals.guestList);
+      return next();
+    })
+    .catch(err => {
+      return next(err)
+    });
 };
 
 // route to delete existing guest
@@ -59,7 +61,7 @@ guestController.deleteGuest = async (req, res, next) => {
     }
     const qDeleteResult = await db.query(qDeleteGuest);
     return next();
-  } catch(err) {
+  } catch (err) {
     return next(err);
   }
 };

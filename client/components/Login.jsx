@@ -1,39 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import fetch from 'node-fetch'
 import GuestContainer from '../containers/GuestContainer';
+import AdminContainer from '../containers/AdminContainer';
 
 const Login = (props) => {
   // Hooks for username and password
   const [userId, setUserId] = useState('')
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [hasAccess, setHasAccess] = useState(false);
+  const [hasResidentAccess, setHasResidentAccess] = useState(false);
+  const [hasAdminAccess, setHasAdminAccess] = useState(false);
+
+  // Automatically redirect to Admin or resident portal on refresh
+  useEffect(() => {
+    fetch('/login/loginCheck')
+      .then(res => res.json())
+      .then(data => {
+        console.log('data', data);
+        if (data.message !== 'user logged in') {
+          setHasAdminAccess(false);
+          setHasResidentAccess(false);
+          props.setHasAccess(false);
+        } else if (data.type === 'resident') {
+          setHasResidentAccess(true);
+          props.setHasAccess(true);
+        } else if (data.type === 'admin') {
+          setHasAdminAccess(true);
+          props.setHasAccess(true);
+        }
+      })
+  }, [])
 
   // Function to submit login form to server
   const submitLogin = (e) => {
-    console.log(username, password);
+    // setHasResidentAccess(true)
+    // console.log(username, password);
     fetch('/login', {
       method: 'post',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' }
     })
-      // .then(res => res.json())
-      .then(data => console.log(data))
-      //set hasAccess to true if username password matches
-      // .then(res => setUserId({userId}))
+      .then(res => res.json())
+      .then(data => {
+        console.log('data is: ', data)
+        if (data === 'resident') {
+          setHasResidentAccess(true);
+          props.setHasAccess(true);
+          setUserId(data.userId);
+        } else if (data === 'admin') {
+          setHasAdminAccess(true);
+          props.setHasAccess(true);
+          setUserId(data.userId)
+        } else {
+          window.alert('username or password is incorrect');
+        }
+      })
       .catch(err => console.error(err));
   }
-  // Redirects to change password page
-  // const changePassword = () => {
-  //   console.log('Changing password')
-  //   fetch('/changepassword')
-  //     .catch(err => console.log(err))
-  // }
 
   return (
     <div>
       <div>
-        {!props.hasAccess &&
+        {!hasAdminAccess && !hasResidentAccess &&
           <>
             <h1>Login</h1>
             <input type='text' value={username} onChange={e => setUsername(e.target.value)} placeholder='USERNAME'></input>
@@ -43,9 +71,12 @@ const Login = (props) => {
         }
       </div>
       <div>
-        {props.hasAccess && <GuestContainer userId={userId} />}
+        {/* SWAP THESE */}
+        {hasResidentAccess && <GuestContainer userId={userId} />}
       </div>
-      <button onClick={() => props.setHasAccess(!props.hasAccess)}>toggle</button>
+      <div>
+        {hasAdminAccess && <AdminContainer userId={userId} />}
+      </div>
 
     </div>
   )

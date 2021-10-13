@@ -15,7 +15,7 @@ router.post('/',
 router.get('/loginCheck',
   loginController.isLoggedIn,
   (req, res) => {
-    return res.status(200).json({ message: "user logged in" });
+    return res.status(200).json({ message: "user logged in", type: res.locals.userType});
 });
 
 router.post('/changedPassword',

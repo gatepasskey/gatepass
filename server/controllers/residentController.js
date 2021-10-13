@@ -11,7 +11,7 @@ residentController.getResidentsAndGuests = async (req, res, next) => {
     res.locals.residentsAndGuests = qResidentsAndGuestsResults.rows;
     return next();
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 

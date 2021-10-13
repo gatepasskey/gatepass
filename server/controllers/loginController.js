@@ -16,7 +16,7 @@ loginController.verifyUser = async (req, res, next) => {
     }
     const qResult = await db.query(qUser);
     if (qResult.rows.length) {
-      if (qResult.rows.admin) {
+      if (qResult.rows[0].admin) {
         res.locals.userType = 'admin';
       } else {
         res.locals.userType = 'resident';
@@ -29,7 +29,9 @@ loginController.verifyUser = async (req, res, next) => {
     return next(err);
   }
 };
-
+// cookie will have userId
+// returned value from 
+// 
 // route to generate cookie for the logged in user
 loginController.generateCookie = (req, res, next) => {
   // set cookie key: key value: hash identifying user
@@ -44,18 +46,22 @@ loginController.isLoggedIn = async (req, res, next) => {
   // return next
   const currentUser = req.cookies.user;
   const qUser = {
-    text: 'SELECT * FROM users WHERE username=$1',
+    text: 'SELECT * FROM users WHERE _id=$1',
     values: [currentUser]
   }
-  const qUserResult = await db.query(qUser);
-  if (qUserResult.rows[0].admin) {
-    res.locals.userType = 'admin';
-  } else if (!qUserResult.rows[0].admin) {
-    res.locals.userType = 'resident';
-  } else {
-    return res.json({ message: 'Invalid Access' });
+  try {
+    const qUserResult = await db.query(qUser);
+    if (qUserResult.rows[0].admin) {
+      res.locals.userType = 'admin';
+    } else if (!qUserResult.rows[0].admin) {
+      res.locals.userType = 'resident';
+    } else {
+      return res.json({ message: 'Invalid Access' });
+    }
+    return next();
+  } catch (err) {
+    return next(err);
   }
-  return next();
 }
 
 // route that handles the changing of a users password
