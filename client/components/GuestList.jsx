@@ -17,7 +17,7 @@ const GuestList = (props) => {
         const guestArray = [];
         // console.log(data);
         data.map((guest) => {
-          guestArray.push(<Guest key={guest._id} firstName={guest.first_name} lastName={guest.last_name} email={guest.email} />)
+          guestArray.push(<Guest guestList={guestList} setGuestList={setGuestList} key={guest._id} guestId={guest._id} firstName={guest.first_name} lastName={guest.last_name} email={guest.email} />)
         })
         setGuestList(guestArray);
       })
@@ -30,7 +30,7 @@ const GuestList = (props) => {
       <div>
         {guestList}
       </div>
-      <button onClick={refreshGuestList}>Refresh Guest List</button>
+      {/* <button onClick={refreshGuestList}>Refresh Guest List</button> */}
     </div>
   )
 };
