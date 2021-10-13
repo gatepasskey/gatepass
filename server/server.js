@@ -14,7 +14,6 @@ const PORT = 3000;
 
 // parsers
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client')))
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 

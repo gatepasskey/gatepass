@@ -64,11 +64,11 @@ const Login = (props) => {
       <div>
         {!hasAdminAccess && !hasResidentAccess &&
           <>
-            <h1>Login</h1>
-            <form onSubmit={submitLogin}>
-              <input type='text' value={username} onChange={e => setUsername(e.target.value)} placeholder='USERNAME'></input>
+            <h1>WELCOME TO GATEPASS</h1>
+            <form className="loginForm" onSubmit={submitLogin}>
+              <input id="usernameInput" type='text' value={username} onChange={e => setUsername(e.target.value)} placeholder='USERNAME'></input>
               <input type='password' value={password} onChange={e => setPassword(e.target.value)} placeholder='PASSWORD'></input>
-              <button type='submit'>LOG IN</button>
+              <button className="loginFormButton" id="loginButton" type='submit'>LOGIN</button>
             </form>
           </>
         }
@@ -80,7 +80,6 @@ const Login = (props) => {
       <div>
         {hasAdminAccess && <AdminContainer userId={userId} />}
       </div>
-
     </div>
   )
 }
