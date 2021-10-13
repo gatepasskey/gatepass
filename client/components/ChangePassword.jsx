@@ -43,13 +43,13 @@ const ChangePassword = () => {
       .catch(err => console.error(err))
   }
   return (
-    <div>
-      <h2>PLEASE CREATE A NEW PASSWORD</h2>
+    <div className="changePasswordForm">
+      <h1 id="changePasswordHeader">CREATE A NEW PASSWORD</h1>
       <input type='username' value={username} onChange={e => setUsername(e.target.value)} placeholder='USERNAME'></input>
-      <input type='password' value={oldPass} onChange={e => setOldPass(e.target.value)} placeholder='Current Password'></input>
-      <input type='password' value={newPass} onChange={e => setNewPass(e.target.value)} placeholder='New Password'></input>
-      <input type='password' value={confirmPass} onChange={e => setConfirmPass(e.target.value)} placeholder='Confirm your password'></input>
-      <button onClick={resetPassword}> Reset Password</button>
+      <input type='password' value={oldPass} onChange={e => setOldPass(e.target.value)} placeholder='OLD PASSWORD'></input>
+      <input type='password' value={newPass} onChange={e => setNewPass(e.target.value)} placeholder='NEW PASSWORD'></input>
+      <input type='password' value={confirmPass} onChange={e => setConfirmPass(e.target.value)} placeholder='CONFIRM NEW PASSWORD'></input>
+      <button id="createNewPasswordButton" onClick={resetPassword}>CREATE NEW PASSWORD</button>
     </div>
   )
 };

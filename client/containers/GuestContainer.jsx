@@ -33,19 +33,21 @@ const GuestContainer = (props) => {
       })
   }
   return (
-    <div>
+    <div className="mainContainer">
+      <h1 id="guestContainerHeader">MY GATEPASS</h1>
       <LogoutButton />
-      <GuestPage
-        guestList={guestList}
-        refreshGuestList={refreshGuestList}
-        userId={props.userId} />
-      <GuestList
-        guestList={guestList}
-        refreshGuestList={refreshGuestList}
-        userId={props.userId}
-      />
+      <div className="guestContainer">
+        <GuestPage
+          guestList={guestList}
+          refreshGuestList={refreshGuestList}
+          userId={props.userId} />
+        <GuestList
+          guestList={guestList}
+          refreshGuestList={refreshGuestList}
+          userId={props.userId} />
+      </div>
     </div>
-  )
+      )
 }
 
-export default GuestContainer;
+      export default GuestContainer;
