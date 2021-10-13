@@ -30,14 +30,14 @@ const GuestPage = () => {
   }
 
   return (
-    <div id='addGuest'>
-      <h2>NEW GUEST INFORMATION</h2>
-      <input type='text' value={guestFirstName} onChange={e => setGuestFirstName(e.target.value)} placeholder='Guest First Name'></input>
-      <input type='text' value={guestLastName} onChange={e => setGuestLastName(e.target.value)} placeholder='Guest Last Name'></input>
-      <input type='text' value={guestEmail} onChange={e => setGuestEmail(e.target.value)} placeholder='Guest Email'></input>
-      <input type='text' value={guestPhone} onChange={e => setGuestPhone(e.target.value)} placeholder='Guest Phone Number'></input>
-      <input type='text' value={guestLicense} onChange={e => setGuestLicense(e.target.value)} placeholder='Guest License Plate Number'></input>
-      <button onClick={AddGuest}>Add New Guest</button>
+    <div className="addGuestForm">
+      {/* <h1 className="guestHeader">NEW GUEST INFORMATION</h1> */}
+      <input type='text' value={guestFirstName} onChange={e => setGuestFirstName(e.target.value)} placeholder='FIRST NAME'></input>
+      <input type='text' value={guestLastName} onChange={e => setGuestLastName(e.target.value)} placeholder='LAST NAME'></input>
+      <input type='text' value={guestEmail} onChange={e => setGuestEmail(e.target.value)} placeholder='EMAIL'></input>
+      <input type='text' value={guestPhone} onChange={e => setGuestPhone(e.target.value)} placeholder='PHONE NUMBER'></input>
+      <input type='text' value={guestLicense} onChange={e => setGuestLicense(e.target.value)} placeholder='LICENSE PLATE NUMBER'></input>
+      <button id="addNewGuestButton" onClick={AddGuest}>ADD NEW GUEST</button>
     </div>
 
   )

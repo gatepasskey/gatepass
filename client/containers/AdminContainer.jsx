@@ -38,11 +38,11 @@ const AdminContainer = () => {
   // _id: "4c4f4dfe-f203-4d78-bef2-3df860747336"
 
   return (
-    <div>
-      <h1>Admin Page</h1>
+    <div className="mainContainer">
+      <h1 id="adminHeader">GATEPASS ADMIN</h1>
       <LogoutButton />
-      <form onSubmit={residentSearch}>
-        <input value={residentAddress} onChange={(e) => setResidentAddress(e.target.value)} placeholder='Enter Resident Unit'></input>
+      <form className="adminForm" onSubmit={residentSearch}>
+        <input id="adminSearch" value={residentAddress} onChange={(e) => setResidentAddress(e.target.value)} placeholder='SEARCH RESIDENT UNIT'></input>
         <button type='submit'>SEARCH</button>
       </form>
       <div>{userInfo.username} {userInfo.address} {userInfo.phone_number}</div>

@@ -20,10 +20,13 @@ const GuestContainer = (props) => {
     getGuests();
   }, [])
   return (
-    <div>
-      <LogoutButton />
-      <GuestPage userId={props.userId} />
-      <GuestList guestArray={guestArray} getGuests={getGuests} userId={props.userId} />
+    <div className="mainContainer">
+      <h1 id="guestContainerHeader">MY GATEPASS</h1>
+      <LogoutButton/>
+      <div className="guestContainer">
+        <GuestPage userId={props.userId}/>
+        <GuestList guestArray={guestArray} getGuests={getGuests} userId={props.userId}/>
+      </div>
     </div>
   )
 }

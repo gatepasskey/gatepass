@@ -65,8 +65,8 @@ button {
 }
 
 button:hover {
-  background-color: #acacac;
-  color: rgb(23, 23, 23);
+  background-color: #f1f0ea;
+  color: #29282A;
 }
 
 #loginButton {
@@ -92,4 +92,118 @@ button:hover {
 #createNewPasswordButton {
   margin-top: 40px;
   margin-bottom: 5px;
+}
+
+.guestContainer {
+  width: 250%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#guestContainerHeader {
+  margin-top: 40px;
+}
+
+.addGuestForm {
+  width: 90%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  text-align: center;
+  background-color: #29282A;
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 0 10px black;
+}
+
+#addNewGuestButton {
+  margin-top: 40px;
+  background-color: #ee9b00;
+  opacity: 65%;
+}
+
+#addNewGuestButton:hover {
+  background-color: #ee9b00;
+  color: #f1f0ea;
+  opacity: 100%;
+}
+
+.guestHeader {
+  font-size: 100%;
+  margin-top: 0px;
+}
+
+.guestList {
+  width: 90%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  text-align: center;
+  background-color: #29282A;
+  border-radius: 20px;
+  margin: 20px;
+  box-shadow: 0 0 10px black;
+}
+
+#logoutButton {
+  height: 50px;
+  width: 200px;
+  margin-bottom: 40px;
+}
+
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#adminHeader {
+  margin-top: 40px;
+}
+
+#adminSearch {
+  width: 90%;
+  margin-right: 10px;
+}
+
+.adminForm {
+  width: 120%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+table {
+  width: 250%;
+  border-collapse: collapse;
+}
+
+th {
+  height: 50px;
+}
+
+td {
+  height: 40px;
+}
+
+th, td {
+  width: 25%;
+}
+
+table, th, td {
+  border: 1px solid #f1f0ea;
+  text-align: center;
 }

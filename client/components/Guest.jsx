@@ -18,7 +18,7 @@ const Guest = (props) => {
 
   return (
     <span>
-      <div onClick={() => setShowInfo(!showInfo)}>{props.firstName} {props.lastName}</div>
+      <div id="guest" onClick={() => setShowInfo(!showInfo)}>{props.firstName} {props.lastName}</div>
       {showInfo &&
         <div>{props.email}
           <button id={props.guestId} onClick={deleteGuest}>delete user</button>

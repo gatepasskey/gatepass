@@ -31,14 +31,13 @@ const GuestList = (props) => {
   }
   // populate array with guest list
 
-
-return (
-  <div>
-    <h1>Guest List</h1>
-    <div>
-      {guestList}
-    </div>
-    <button onClick={refreshGuestList}>Refresh Guest List</button>
+  return (
+    <div className="guestList">
+      <h1 className="guestHeader">MY GUESTS</h1>
+      <div>
+        {guestList}
+      </div>
+      <button onClick={refreshGuestList}>Refresh Guest List</button>
   </div>
 )
 };
