@@ -14,10 +14,21 @@ const GuestPage = () => {
         method: 'post',
         body: JSON.stringify({ guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense }),
         headers: { 'Content-type': 'application/json' }
+      }).then(() => {
+        clearFields();
       })
         .catch(err => console.log(err))
     }
   }
+
+  const clearFields = () => {
+    setGuestFirstName('');
+    setGuestLastName('');
+    setGuestEmail('');
+    setGuestPhone('');
+    setGuestLicense('');
+  }
+
   return (
     <div id='addGuest'>
       <h2>NEW GUEST INFORMATION</h2>

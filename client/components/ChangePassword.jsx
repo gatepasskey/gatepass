@@ -6,6 +6,12 @@ const ChangePassword = () => {
   const [newPass, setNewPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
 
+  const clearFields = () => {
+    setUsername('');
+    setOldPass('');
+    setNewPass('');
+    setConfirmPass('');
+  }
   // reset password handler
   const resetPassword = () => {
     if (!username || !oldPass || !newPass || !confirmPass) {
@@ -19,25 +25,22 @@ const ChangePassword = () => {
       return window.alert('New password cannot be the same as current password.')
     }
     //Add check to see if current password is correct
-    fetch('/login', {
+
+    fetch('/login/changedPassword', {
       method: 'post',
-      body: JSON.stringify({ username, password: oldPass }),
+      body: JSON.stringify({ username, password: oldPass, newPassword: newPass, confirmPass }),
       headers: { 'Content-Type': 'application/json' }
-    }).then(res => res.json())
-      .then(data => {
-        console.log(data);
-        if (data === 'resident' || data === 'admin') {
-          fetch('/login/changedPassword', {
-            method: 'post',
-            body: JSON.stringify({ username, password: oldPass, newPassword: newPass, confirmPass }),
-            headers: { 'Content-Type': 'application/json' }
-          })
-            .catch(err => console.error(err))
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.message);
+        if (data.message === 'User Not Found') {
+          return window.alert('Invalid Username/Password combination');
+        } else {
+          clearFields();
         }
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => console.error(err))
   }
   return (
     <div>

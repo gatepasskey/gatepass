@@ -26,24 +26,39 @@ guestController.addNewGuest = async (req, res, next) => {
   const { guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense } = req.body;
   const currentUser = req.cookies.user;
   const id = uuidv4();
+  // creates assets/images/ folder if it doesnt exist already
+  let dir = path.resolve(__dirname, `../../assets/images/`);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
   try {
-    fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${id}`, {
-      headers: { 'Content-Type': 'image/png' }
-    })
-      .then(res => {
-        res.body.pipe(fs.createWriteStream(`assets/images/${id}.png`));
-      });
     const qNewGuest = {
       text: 'INSERT INTO guests VALUES ($1, $2, $3, $4, $5, $6, $7)',
       values: [id, guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, currentUser]
     }
     const qNewGuestResult = await db.query(qNewGuest);
     res.locals.id = id;
-    return next();
   } catch (err) {
     console.log('ERROR IN addNewGuest: ', err);
     return next(err);
   }
+
+  fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${id}`, {
+    headers: { 'Content-Type': 'image/png' }
+  })
+    .then(res => {
+      const writeStream = fs.createWriteStream(`assets/images/${id}.png`);
+      res.body.pipe(writeStream);
+      writeStream.on("finish", () => {
+        writeStream.close();
+        console.log('Downloaded Image');
+        return next();
+      })
+      // res.body.pipe(fs.createWriteStream(`assets/images/${id}.png`));
+    })
+    .catch((err) => {
+      console.log('ERROR IN addNewGuest: ', err);
+      return next(err);
+    });
 };
 
 guestController.sendEmail = async (req, res, next) => {
@@ -57,9 +72,13 @@ guestController.sendEmail = async (req, res, next) => {
 
     const user = qGuestCheckResult.rows[0];
 
+    // creates assets/images/ folder if it doesnt exist already
+    let dir = path.resolve(__dirname, `../../assets/images/`);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
     const mailOptions = {
       from: `${defaultEmail}`,
-      to: `${defaultEmail}`,
+      to: `${user.guestEmail}`,
       subject: 'GATEPASS: Community visit - QR Code',
       text: 'Attached is your QR Code for your visit. Please call the help desk if there are any issues. Looking forward to having you visit soon!',
       html: '<img src="cid:qr"/>',

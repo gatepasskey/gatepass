@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 const Guest = (props) => {
   const [showInfo, setShowInfo] = useState(false);
+
   const deleteGuest = (e) => {
     console.log('target: ', e.target.id)
     fetch('/portal/deleteGuest', {
@@ -10,10 +11,7 @@ const Guest = (props) => {
       body: JSON.stringify({ guestId: e.target.id }),
       headers: { 'Content-Type': 'application/json' }
     }).then((res) => {
-      let newArr = props.guestList.filter((entry) => {
-        return entry._id !== e.target.id;
-      })
-      props.setGuestList(newArr);
+      props.refreshGuestList();
     })
       .catch(err => console.log('Error: ', err))
   }
