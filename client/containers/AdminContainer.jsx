@@ -2,17 +2,24 @@ import React, { useState } from 'react';
 import AdminPage from "../components/AdminPage";
 
 const AdminContainer = () => {
-  const [resident, updateResident] = useState('');
+  const [resident, setResident] = useState('');
+  const [guestList, setGuestList] = useState([]);
   const residentSearch = () => {
-    fetch('')
-    return 
+    fetch('/portal/getResidentsAndGuests')
+      .then(res => res.json())
+      .then(data => {
+        setGuestList(data);
+        console.log(data)
+      })
+    return
   }
 
   return (
     <div>
-      <input value={resident} onChange={(e) => updateResident(e.target.value)}placeholder='SEARCH FOR RESIDENT'></input>
+      <h1>Admin Page</h1>
+      <input value={resident} onChange={(e) => setResident(e.target.value)} placeholder='SEARCH FOR RESIDENT'></input>
       <button onClick={residentSearch}>GO</button>
-      <AdminPage />
+      <AdminPage guestList={guestList}/>
     </div>
   )
 }
