@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GuestPage = () => {
+const GuestPage = (props) => {
   const [guestFirstName, setGuestFirstName] = useState('');
   const [guestLastName, setGuestLastName] = useState('');
   const [guestEmail, setGuestEmail] = useState('');
@@ -16,6 +16,7 @@ const GuestPage = () => {
         headers: { 'Content-type': 'application/json' }
       }).then(() => {
         clearFields();
+        props.setWillUpdate(true);
       })
         .catch(err => console.log(err))
     }

@@ -10,37 +10,38 @@ const GuestList = (props) => {
     refreshGuestList();
   }, [])
 
+  // Method to refresh guest List
   const refreshGuestList = () => {
-    props.getGuests();
     const tempArray = [];
-    console.log(props.guestArray);
-    props.guestArray.map((guest) => {
-      tempArray.push(<Guest
-        refreshGuestList={refreshGuestList}
-        guestList={guestList}
-        setGuestList={setGuestList}
-        key={guest._id}
-        guestId={guest._id}
-        firstName={guest.first_name}
-        lastName={guest.last_name}
-        email={guest.email}
-      />)
-    })
-    // console.log(tempArray);
-    setGuestList(tempArray);
+    fetch('/portal/getGuests')
+      .then(res => res.json())
+      .then(data => {
+        data.map((guest) => {
+          tempArray.push(<Guest
+            refreshGuestList={refreshGuestList}
+            guestList={guestList}
+            setGuestList={setGuestList}
+            key={guest._id}
+            guestId={guest._id}
+            firstName={guest.first_name}
+            lastName={guest.last_name}
+            email={guest.email}
+          />)
+        })
+        setGuestList(tempArray);
+      })
   }
-  // populate array with guest list
 
 
-return (
-  <div>
-    <h1>Guest List</h1>
+  return (
     <div>
-      {guestList}
+      <h1>Guest List</h1>
+      <div>
+        {guestList}
+      </div>
+      <button onClick={refreshGuestList}>Refresh Guest List</button>
     </div>
-    <button onClick={refreshGuestList}>Refresh Guest List</button>
-  </div>
-)
+  )
 };
 
 export default GuestList;
