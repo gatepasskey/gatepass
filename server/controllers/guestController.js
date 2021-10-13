@@ -22,9 +22,9 @@ guestController.addNewGuest = async (req, res, next) => {
   // add guest data to database if completely new
   // return next
   // else, return back to the frontend that there was an error adding a new guest
-  const { guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, guestResidentId } = req.body;
+  const { guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense } = req.body;
 
-  // const currentUser = req.cookies.user;
+  const currentUser = req.cookies.user;
   const id = uuidv4();
   try {
     fetch(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${id}`, {
@@ -35,7 +35,7 @@ guestController.addNewGuest = async (req, res, next) => {
       });
     const qNewGuest = {
       text: 'INSERT INTO guests VALUES ($1, $2, $3, $4, $5, $6, $7)',
-      values: [id, guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, guestResidentId]
+      values: [id, guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense, currentUser]
     }
     const qNewGuestResult = await db.query(qNewGuest);
     res.locals.id = id;
