@@ -17,7 +17,7 @@ const Guest = (props) => {
   return (
     <span>
       <div id="guest">{props.firstName} {props.lastName}
-      <button className="deleteGuestFromList" id={props.guestId} onClick={deleteGuest}>X</button>
+        <button className="deleteGuestFromList" id={props.guestId} onClick={deleteGuest}>X</button>
       </div>
     </span>
   )

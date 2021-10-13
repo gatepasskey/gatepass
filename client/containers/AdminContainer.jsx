@@ -25,17 +25,9 @@ const AdminContainer = () => {
           username: data.residentInfo.username
         })
         setGuestList(data.guests);
-        console.log(data)
       })
     return
   }
-  //resident
-  //   address: "123 Here"
-  // admin: false
-  // password: "resident1"
-  // phone_number: "12345678910"
-  // username: "resident1"
-  // _id: "4c4f4dfe-f203-4d78-bef2-3df860747336"
 
   return (
     <div className="mainContainer">

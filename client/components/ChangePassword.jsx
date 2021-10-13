@@ -12,6 +12,7 @@ const ChangePassword = () => {
     setNewPass('');
     setConfirmPass('');
   }
+
   // reset password handler
   const resetPassword = () => {
     if (!username || !oldPass || !newPass || !confirmPass) {
@@ -24,7 +25,6 @@ const ChangePassword = () => {
     if (oldPass == newPass) {
       return window.alert('New password cannot be the same as current password.')
     }
-    //Add check to see if current password is correct
 
     fetch('/login/changedPassword', {
       method: 'post',

@@ -5,8 +5,8 @@ const loginController = {};
 // route to check if the user exists 
 loginController.verifyUser = async (req, res, next) => {
   // query database to check if the user exists
-    // also query for what the user type is (admin or resident) and save the type in res.locals.userType
-    // return next
+  // also query for what the user type is (admin or resident) and save the type in res.locals.userType
+  // return next
   // else, return back to the frontend that there was an error finding that user\
   const { username, password } = req.body;
   try {
@@ -29,9 +29,7 @@ loginController.verifyUser = async (req, res, next) => {
     return next(err);
   }
 };
-// cookie will have userId
-// returned value from 
-// 
+
 // route to generate cookie for the logged in user
 loginController.generateCookie = (req, res, next) => {
   // set cookie key: key value: hash identifying user
