@@ -2,6 +2,7 @@ const db = require('../models/dbConnection');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 const path = require('path');
+const fetch = require('node-fetch');
 const nodemailer = require('nodemailer');
 
 const defaultEmail = 'gatepasskey@gmail.com';
@@ -10,7 +11,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: `${defaultEmail}`,
-    pass: 'gatepasskeydev'
+    pass: 'ingmqozxapowplmp'
   }
 });
 
@@ -23,7 +24,6 @@ guestController.addNewGuest = async (req, res, next) => {
   // return next
   // else, return back to the frontend that there was an error adding a new guest
   const { guestFirstName, guestLastName, guestEmail, guestPhone, guestLicense } = req.body;
-
   const currentUser = req.cookies.user;
   const id = uuidv4();
   try {
@@ -41,15 +41,17 @@ guestController.addNewGuest = async (req, res, next) => {
     res.locals.id = id;
     return next();
   } catch (err) {
+    console.log('ERROR IN addNewGuest: ', err);
     return next(err);
   }
 };
 
 guestController.sendEmail = async (req, res, next) => {
   try {
+    const id = res.locals.id;
     const qGuestCheck = {
       text: 'SELECT * FROM guests WHERE _id=$1',
-      values: [res.locals.id]
+      values: [id]
     }
     const qGuestCheckResult = await db.query(qGuestCheck);
 
@@ -57,10 +59,10 @@ guestController.sendEmail = async (req, res, next) => {
 
     const mailOptions = {
       from: `${defaultEmail}`,
-      to: `${user.guestEmail}`,
+      to: `${defaultEmail}`,
       subject: 'GATEPASS: Community visit - QR Code',
       text: 'Attached is your QR Code for your visit. Please call the help desk if there are any issues. Looking forward to having you visit soon!',
-      html: 'Embedded image:<img src="cid:qr"/>',
+      html: '<img src="cid:qr"/>',
       attachments: [{
         filename: `${id}.png`,
         path: path.resolve(__dirname, `../../assets/images/${id}.png`),
@@ -77,6 +79,7 @@ guestController.sendEmail = async (req, res, next) => {
     });
     return next();
   } catch (err) {
+    console.log('ERROR IN addNewGuest: ', err)
     return next(err);
   }
 }
@@ -107,12 +110,11 @@ guestController.deleteGuest = async (req, res, next) => {
   // delete guest from database
   // return next
   // else, return back to the frontend that there was an error deleting a guest
-  const currentUser = req.cookies.user;
   const { guestId } = req.body;
   try {
     const qDeleteGuest = {
-      text: 'DELETE FROM guests WHERE resident_id=$1 AND _id=$2',
-      value: [currentUser, guestId]
+      text: 'DELETE FROM guests WHERE resident_id=$1',
+      value: [guestId]
     }
     const qDeleteResult = await db.query(qDeleteGuest);
     return next();
